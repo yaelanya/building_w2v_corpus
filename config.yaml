@@ -1,0 +1,7 @@
+corpus:
+  input: 'data/random_patents_100000.pkl'
+  use_col: 'contents'
+  output: 'data/corpus_sudachi.txt'
+  use_field: ['ab', 'cl', 'de']
+  batch_size: 100000
+  n_jobs: -1
