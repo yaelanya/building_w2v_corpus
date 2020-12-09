@@ -1,0 +1,7 @@
+corpus:
+  input: '../effect-extraction/data/raw/patents_from_B23B.csv'
+  use_col: 'contents'
+  output: 'test_corpus.txt'
+  use_field: ['ab', 'cl', 'de']
+  batch_size: 10000
+  n_jobs: -1
