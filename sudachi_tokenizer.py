@@ -13,8 +13,9 @@ import utils
 flatten = lambda l: [item for sub_l in l for item in sub_l]
 
 class Tokenizer:
-    def __init__(self):
+    def __init__(self, with_pos=False):
         self.mode = tokenizer.Tokenizer.SplitMode.A
+        self.with_pos = with_pos
 
     def set_tokenizer(self):
         self.tokenizer = dictionary.Dictionary().create()
@@ -25,11 +26,19 @@ class Tokenizer:
 
     def _tokenize(self, text):
         try:
-            return [token.dictionary_form() for token in self.tokenizer.tokenize(text, self.mode)]
+            return [self._get_token(token) for token in self.tokenizer.tokenize(text, self.mode)]
         except:
             logging.warning('Failed to tokenize.')
             return []
 
+    def _get_token(self, token):
+        token_text = token.dictionary_form()
+
+        if self.with_pos:
+            pos = ','.join(token.part_of_speech())
+            return token_text + '###' + pos
+        
+        return token_text
 
 
 def main(args):
